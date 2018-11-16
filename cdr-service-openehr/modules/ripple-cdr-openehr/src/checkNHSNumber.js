@@ -33,6 +33,7 @@ var openEHR = require('./openEHR');
 var postFeed = require('../feeds/post');
 
 function checkNHSNumber(patientId, email, session, callback) {
+ // function needs renaming to checkIDNumber
 
   var host = this.userDefined.defaultPostHost || 'ethercis';
 
