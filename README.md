@@ -10,12 +10,12 @@ Author: Rob Tweed, M/Gateway Developments Ltd (@rtweed)
 
 # Docker / MicroService-based Ripple QEWD middleware
 
-## Summary of the Helm Architecture
+## Summary of the  QEWD-Courier Architecture
 
-The Helm middle-tier environment consists of 5 MicroServices, each of which is a Dockerised instance of
+The QEWD-Courier middle-tier environment consists of a set of microServices, each of which is a Dockerised instance of
 [QEWD.js](https://qewdjs.com) that is customised to perform a specific task.  
 
-The Helm middle-tier implements the REST APIs that are used by the Helm User Interface (UI) that is known as [PulseTile](https://github.com/PulseTile)
+This implements the REST APIs that are sit between a User Interface (UI) and Data Repository
 
 The MicroServices are as follows:
 
