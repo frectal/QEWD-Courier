@@ -27,9 +27,9 @@
   8 January 2018
 
 */
-
+var config = require('../../../../settings/configuration');
 var moment = require('moment-timezone');
-var timezone = 'Europe/London';
+var timezone = config.timezone;
 
 
 function format(date) {

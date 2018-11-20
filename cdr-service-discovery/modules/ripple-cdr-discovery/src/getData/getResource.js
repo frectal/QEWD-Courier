@@ -24,52 +24,63 @@
  |  limitations under the License.                                          |
  ----------------------------------------------------------------------------
 
-  11 October 2018
+  17 October 2018
 
 */
 
 var request = require('request');
-var api_server = require('./hosts').api;
-var cachePatientResource = require('./cachePatientResource');
+var api_server = require('../hosts').api;
+var cacheResource = require('../cacheResource');
 
-module.exports = function(nhsNumber, token, session, callback) {
+module.exports = function(reference, token, session, callback) {
 
-  if (session.data.$(['Discovery', 'Patient','by_nhsNumber', nhsNumber]).exists) {
-    callback(false);
+  var pieces = reference.split('/');
+  var resourceName = pieces[0];
+  var uuid = pieces[1];
+  if (!session.data.$(['Discovery', resourceName, 'by_uuid', uuid]).exists) {
+    var beingFetched = session.data.$(['fetchingResource', reference]);
+    if (!beingFetched.exists) {
+      // set fetching flag and go ahead and fetch the resource
+      beingFetched.value = true;
+
+      var uri = api_server.host + api_server.paths.getResource;
+      var params = {
+        url: uri,
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+        qs: {
+          reference: reference
+        }
+      };
+      console.log('getResource params = ' + JSON.stringify(params, null, 2));
+      request(params, function(error, response, body) {
+        console.log('*** getResource response: ' + JSON.stringify(response, null, 2));
+        if (!error) {
+          var resource;
+          if (body === '') {
+            resource = {};
+          }
+          else {
+            resource = JSON.parse(body);
+            cacheResource(resourceName, resource, session);
+          }
+          callback(false, resource);
+        }
+        else {
+          console.log(error);
+          callback(error);
+        }
+      });
+    }
+    else {
+      // already in the process of being fetched, so no further action required
+      callback(false);
+    }
   }
   else {
-    var uri = api_server.host + api_server.paths.getPatientsByNHSNumber;
-    var params = {
-      url: uri,
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + token
-      },
-      qs: {
-        nhsNumber: nhsNumber
-      }
-    };
-    console.log('getPatientByNHSNumber params = ' + JSON.stringify(params, null, 2));
-    request(params, function(error, response, body) {
-      console.log('*** getPatientByNHSNumber response: ' + JSON.stringify(response, null, 2));
-      if (response.statusCode !== 200) {
-        return callback({error: 'Discovery Server Problem: ' + body});
-      }
-      if (!error) {
-        try {
-          var patientResource = JSON.parse(body);
-          cachePatientResource(nhsNumber, patientResource, session);
-          callback(false);
-        }
-        catch(err) {
-          console.log('** unable to parse body: ' + body);
-          callback({error: err});
-        }
-      }
-      else {
-        console.log(error);
-        callback(error);
-      }
-    });
+    // already fetched and cached, so no further action required
+    callback(false);
   }
 };

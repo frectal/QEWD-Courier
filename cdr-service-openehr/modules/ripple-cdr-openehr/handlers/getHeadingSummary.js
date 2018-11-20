@@ -29,7 +29,7 @@
 */
 
 var fetchAndCacheHeading = require('../src/fetchAndCacheHeading');
-var getHeadingTableFromCache = require('../src/getHeadingTableFromCache');
+var getHeadingTableFromCache = require('../src/getHeading/getHeadingTableFromCache');
 var tools = require('../src/tools');
 
 function getHeadingTable(patientId, heading, session, callback) {

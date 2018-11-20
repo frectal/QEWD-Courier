@@ -45,5 +45,9 @@
   },
   "jwt": {
     "secret": "bd645d9e-6281-4a96-949a-b249f6ff3d97"
-  }
+  },
+  "timezone": "Europe/London",
+  "application_name" : "ripple-cdr-openehr",
+  "session_timeout": 120000,
+  "session_max": 75
 }

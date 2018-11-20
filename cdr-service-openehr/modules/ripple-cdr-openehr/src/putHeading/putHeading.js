@@ -28,9 +28,9 @@
 
 */
 
-var openEHR = require('./openEHR');
-var mapNHSNoByHost = require('./mapNHSNoByHost');
-var deleteSessionCaches = require('./deleteSessionCaches');
+var openEHR = require('../openEHR');
+var mapNHSNoByHost = require('../mapNHSNoByHost');
+var deleteSessionCaches = require('../deleteSessionCaches');
 var putHeadingData = require('./putHeadingData');
 
 try {

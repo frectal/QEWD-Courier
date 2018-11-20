@@ -29,7 +29,7 @@
 */
 
 var openEHR = require('./openEHR');
-var getHeadingFromOpenEHRServer = require('./getHeadingFromOpenEHRServer');
+var getHeadingFromOpenEHRServer = require('./getHeading/getHeadingFromOpenEHRServer');
 var mapNHSNoByHost = require('./mapNHSNoByHost');
 var servers;
 var noOfServers;

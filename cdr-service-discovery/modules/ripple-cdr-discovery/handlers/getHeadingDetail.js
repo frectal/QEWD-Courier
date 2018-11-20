@@ -29,9 +29,9 @@
 */
 
 var authenticate = require('../src/authenticate');
-var getPatientsByNHSNumber = require('../src/getPatientsByNHSNumber');
-var getPatientResources = require('../src/getPatientResources');
-var getHeadingDetail = require('../src/getHeadingDetail');
+var getPatientsByNHSNumber = require('../src/getData/getPatientsByNHSNumber');
+var getPatientResources = require('../src/getData/getPatientResources');
+var getHeadingDetail = require('../src/getData/getHeadingDetail');
 
 var tools = require('../src/tools');
 var headingMap = require('../src/headingMap');

@@ -29,13 +29,14 @@
 */
 
 var request = require('request');
+var config = require('../../../../settings/configuration');
 var servers;
 var noOfServers;
 var q;
 var initialised = false;
 
-var sessionTimeout = 120000; // OpenEHR Session timeout is 2 minutes in ms
-var sessionMax = 75; // max number of OpenEHR Sessions
+var sessionTimeout = config.session_timeout; // OpenEHR Session timeout is 2 minutes in ms
+var sessionMax = config.session_max; // max number of OpenEHR Sessions
 
 function openEHRRequests(params, userObj) {
 

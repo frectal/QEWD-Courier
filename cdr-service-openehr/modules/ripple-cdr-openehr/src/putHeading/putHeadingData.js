@@ -24,14 +24,14 @@
  |  limitations under the License.                                          |
  ----------------------------------------------------------------------------
 
-  17 January 2018
+  15 February 2018
 
 */
 
 var transform = require('qewd-transform-json').transform;
-var flatten = require('./objectToFlatJSON');
-var dateTime = require('./dateTime');
-var openEHR = require('./openEHR');
+var flatten = require('../objectToFlatJSON');
+var dateTime = require('../dateTime');
+var openEHR = require('../openEHR');
 
 module.exports = function(params, callback) {
   var postMap = params.headingPostMap;
@@ -39,25 +39,26 @@ module.exports = function(params, callback) {
   helpers.now = dateTime.now;
 
   var output = transform(postMap.transformTemplate, params.data, helpers);
-  var body = flatten(output);
 
-  // ready to post
+  // ready to PUT
+
   var params = {
     host: params.host,
     callback: callback,
-    url: '/rest/v1/composition',
+    url: '/rest/v1/composition/' + params.compositionId,
     queryString: {
       templateId: postMap.templateId,
-      ehrId: params.ehrId,
       format: 'FLAT'
     },
-    method: 'POST',
+    method: 'PUT',
     session: params.openEhrSessionId,
     options: {
-      body: body
+      body: flatten(output)
     }
   };
-  console.log('**** about to post data: ' + JSON.stringify(params, null, 2));
+
+  console.log('**** about to PUT Heading: ' + JSON.stringify(params, null, 2));
+
   params.processBody = function(body, userObj) {
     // for this to work, have to set userObj properties
     //  simply setting the userObj object itself to body won't work

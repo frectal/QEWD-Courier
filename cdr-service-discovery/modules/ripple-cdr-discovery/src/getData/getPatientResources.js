@@ -29,9 +29,9 @@
 */
 
 var request = require('request');
-var api_server = require('./hosts').api;
+var api_server = require('../hosts').api;
 var getPatientBundle = require('./getPatientBundle');
-var cacheHeadingResources = require('./cacheHeadingResources');
+var cacheHeadingResources = require('../cacheHeadingResources');
 
 module.exports = function(nhsNumber, resourceRequired, token, session, callback) {
 

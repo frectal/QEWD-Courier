@@ -28,8 +28,8 @@
 
 */
 
-var loadAQLFile = require('./loadAQLFile');
-var openEHR = require('./openEHR');
+var loadAQLFile = require('../loadAQLFile');
+var openEHR = require('../openEHR');
 var template = require('qewd-template');
 var getHeadingByJumper;
 

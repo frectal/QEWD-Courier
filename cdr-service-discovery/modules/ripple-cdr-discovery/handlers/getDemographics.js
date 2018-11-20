@@ -29,9 +29,9 @@
 */
 
 var authenticate = require('../src/authenticate');
-var getPatientsByNHSNumber = require('../src/getPatientsByNHSNumber');
-var getPatientResources = require('../src/getPatientResources');
-var getDemographics = require('../src/getDemographics');
+var getPatientsByNHSNumber = require('../src/getData/getPatientsByNHSNumber');
+var getPatientResources = require('../src/getData/getPatientResources');
+var getDemographics = require('../src/getData/getDemographics');
 var mapToDiscoveryNHSNo = require('../src/mapToDiscoveryNHSNo');
 
 var tools = require('../src/tools');
@@ -85,7 +85,7 @@ module.exports = function(args, finished) {
             var results = getDemographics.call(_this, patientId, session);
             // override the nhsNumber back to the proper one instead of the Discovery-mapped one
 
-            console.log('** /src/getDemographics: ' + JSON.stringify(results, null, 2));
+            console.log('** /src/getData/getDemographics: ' + JSON.stringify(results, null, 2));
 
             results.demographics.id = nhsNumber;
             results.demographics.nhsNumber = nhsNumber;

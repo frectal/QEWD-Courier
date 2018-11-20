@@ -28,7 +28,7 @@
 
 */
 
-var postHeading = require('../src/postHeading');
+var postHeading = require('../src/postHeading/postHeading');
 var openEHR = require('../src/openEHR');
 var mapNHSNoByHost = require('../src/mapNHSNoByHost');
 var deleteSessionCaches = require('../src/deleteSessionCaches');

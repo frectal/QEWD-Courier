@@ -28,7 +28,7 @@
 
 
 */
-
+var config = require('../../../../settings/configuration');
 
 module.exports = function(patientId, heading, jwt, discovery_data, callback) {
 
@@ -47,7 +47,7 @@ module.exports = function(patientId, heading, jwt, discovery_data, callback) {
   */
 
   var messageObj = {
-    application: 'ripple-cdr-openehr',
+    application: config.application_name,
     type: 'restRequest',
     path: '/discovery/merge/' + heading,
     pathTemplate: '/discovery/merge/:heading',

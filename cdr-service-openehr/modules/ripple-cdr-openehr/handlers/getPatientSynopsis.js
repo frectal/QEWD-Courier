@@ -30,7 +30,7 @@
 
 var fetchAndCacheHeading = require('../src/fetchAndCacheHeading');
 var isPatientIdValid = require('../src/tools').isPatientIdValid;
-var getHeadingBySourceId = require('../src/getHeadingBySourceId');
+var getHeadingBySourceId = require('../src/getHeading/getHeadingBySourceId');
 var getTop3ThingsSummary = require('../top3Things/getTop3ThingsSummarySync');
 
 // Headings that make up the synopsis are defined in the userDefined config JSON file

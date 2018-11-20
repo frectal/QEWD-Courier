@@ -60,7 +60,7 @@ var checkNHSNumber = require('./handlers/checkNHSNumber');
 
 var mergeDiscoveryData = require('./handlers/mergeDiscoveryData');
 
-var getDiscoveryHeadingData = require('./src/getDiscoveryHeadingData');
+var getDiscoveryHeadingData = require('./src/getHeading/getDiscoveryHeadingData');
 var mergeDiscoveryDataInWorker = require('./src/mergeDiscoveryDataInWorker');
 
 var routes = {
