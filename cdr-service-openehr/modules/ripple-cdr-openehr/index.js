@@ -56,7 +56,7 @@ var editFeed = require('./feeds/edit');
 var revertDataSourceAPIData = require('./handlers/revertDataSourceAPIData');
 var revertAllDataSourceAPIData = require('./handlers/revertAllDataSourceAPIData');
 
-var checkProjectNumber = require('./handlers/checkProjectNumber');
+var checkIdentifierNumber = require('./handlers/checkIdentifierNumber');
 
 var mergeDataSourceAPIData = require('./handlers/mergeDataSourceAPIData');
 
@@ -65,7 +65,7 @@ var mergeDataSourceAPIDataInWorker = require('./src/mergeDataSourceAPIDataInWork
 
 var routes = {
   '/api/openehr/check': {
-    GET: checkProjectNumber
+    GET: checkIdentifierNumber
   },
   '/api/heading/:heading/fields/summary': {
     GET: getHeadingSummaryFields
@@ -206,7 +206,7 @@ module.exports = {
         console.log('workerResponseHandler: ' + JSON.stringify(message, null, 2));
 
         /*
-          response from /api/openehr/check (/handlers/checkProjectNumber.js) is:
+          response from /api/openehr/check (/handlers/checkIdentifierNumber.js) is:
 
           {
             "status": "loading_data" | "ready",

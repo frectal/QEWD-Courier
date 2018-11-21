@@ -33,7 +33,7 @@ var openEHR = require('./openEHR');
 var postFeed = require('../feeds/post');
 var config = require('../../../config/system_config');
 
-function checkProjectNumber(patientId, email, session, callback) {
+function checkIdentifierNumber(patientId, email, session, callback) {
  // function needs renaming to checkIDNumber
 
   var host = this.userDefined.defaultPostHost || 'ethercis';
@@ -129,4 +129,4 @@ function checkProjectNumber(patientId, email, session, callback) {
 
 }
 
-module.exports = checkProjectNumber;
+module.exports = checkIdentifierNumber;
