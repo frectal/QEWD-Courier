@@ -28,7 +28,7 @@
 
 
 */
-var config = require('../../../../settings/configuration');
+var config = require('../../../config/system_config');
 
 module.exports = function(patientId, heading, jwt, discovery_data, callback) {
 
