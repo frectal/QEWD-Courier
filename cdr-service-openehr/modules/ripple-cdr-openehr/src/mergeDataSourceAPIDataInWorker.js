@@ -42,7 +42,7 @@ module.exports = function(patientId, heading, jwt, discovery_data, callback) {
     a worker process, simulating as if it had come in from an external client
     and via the Conductor microservice
 
-    Note: the worker will invoke /handlers/mergeDiscoveryData.js to deal with this
+    Note: the worker will invoke /handlers/mergeDataSourceAPIData.js to deal with this
 
   */
 

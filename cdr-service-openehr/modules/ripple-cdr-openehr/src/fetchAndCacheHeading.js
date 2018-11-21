@@ -30,7 +30,7 @@
 
 var openEHR = require('./openEHR');
 var getHeadingFromOpenEHRServer = require('./getHeading/getHeadingFromOpenEHRServer');
-var mapNHSNoByHost = require('./mapNHSNoByHost');
+var mapProjectNoByHost = require('./mapProjectNoByHost');
 var servers;
 var noOfServers;
 
@@ -80,7 +80,7 @@ function fetchAndCacheHeading(patientId, heading, session, callback) {
             }
           }
           else {
-            mapNHSNoByHost.call(self, patientId, host, openEhrSession, function(ehrId) {
+			mapProjectNoByHost.call(self, patientId, host, openEhrSession, function(ehrId) {
               if (ehrId) {
                 getHeadingFromOpenEHRServer.call(self, patientId, heading, host, session, openEhrSession, function() {
                   openEHR.stopSession(host, openEhrSession.id, session);

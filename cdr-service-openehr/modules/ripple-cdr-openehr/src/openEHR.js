@@ -459,7 +459,7 @@ function mapNHSNo(nhsNo, sessions, callback) {
   openEHRRequests(params);
 }
 
-function mapNHSNoByHost(nhsNo, host, sessionId, callback) {
+function mapProjectNoByHost(nhsNo, host, sessionId, callback) {
   var ehrId;
   var nhsNoMap = new q.documentStore.DocumentNode('rippleNHSNoMap', [nhsNo, host]);
   if (nhsNoMap.exists) {
@@ -523,7 +523,7 @@ module.exports = {
   startSession: startSession,
   stopSession: stopSession,
   mapNHSNo: mapNHSNo,
-  mapNHSNoByHost: mapNHSNoByHost,
+  mapProjectNoByHost: mapProjectNoByHost,
   idsAvailable: ehrIdAvailable,
   getEhrId: getEhrId
 };

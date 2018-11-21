@@ -29,7 +29,7 @@
 */
 
 var tools = require('../src/tools');
-var checkNHSNumber = require('../src/checkNHSNumber');
+var checkProjectNumber = require('../src/checkProjectNumber');
 
 module.exports = function(args, finished) {
 
@@ -76,13 +76,13 @@ module.exports = function(args, finished) {
     requestNo: 1
   });
 
-  checkNHSNumber.call(this, patientId, email, session, function(response) {
+	checkProjectNumber.call(this, patientId, email, session, function(response) {
 
     // see index.js for workerResponseHandler that is invoked when this has completed
     //  where it will next fetch any new heading data from Discovery and
     //  write it into EtherCIS record
 
-    console.log('** response from /src/checkNHSNumber: \n' + JSON.stringify(response, null, 2));
+    console.log('** response from /src/checkProjectNumber: \n' + JSON.stringify(response, null, 2));
 
     recordStatusDoc.$('new_patient').value = response.new_patient;
     recordStatusDoc.$('status').value = 'loading_data';

@@ -31,8 +31,9 @@
 
 var openEHR = require('./openEHR');
 var postFeed = require('../feeds/post');
+var config = require('../../../config/system_config');
 
-function checkNHSNumber(patientId, email, session, callback) {
+function checkProjectNumber(patientId, email, session, callback) {
  // function needs renaming to checkIDNumber
 
   var host = this.userDefined.defaultPostHost || 'ethercis';
@@ -52,13 +53,13 @@ function checkNHSNumber(patientId, email, session, callback) {
       url: '/rest/v1/ehr',
       queryString: {
         subjectId: patientId,
-        subjectNamespace: 'uk.nhs.nhs_number'
+        subjectNamespace: config.project_subject_namespace
       },
       method: 'GET',
       session: openEhrSession.id,
     };
 
-    console.log('**** about to GET NHS Number check: ' + JSON.stringify(params, null, 2));
+    console.log('**** about to GET Project Number check: ' + JSON.stringify(params, null, 2));
 
     params.processBody = function(body) {
       console.log('&&& OpenEHR response body = ' + JSON.stringify(body, null, 2));
@@ -71,14 +72,14 @@ function checkNHSNumber(patientId, email, session, callback) {
           url: '/rest/v1/ehr',
           queryString: {
             subjectId: patientId,
-            subjectNamespace: 'uk.nhs.nhs_number'
+            subjectNamespace: config.project_subject_namespace
           },
           method: 'POST',
           session: openEhrSession.id,
           options: {
             body: {
               subjectId: patientId,
-              subjectNamespace: 'uk.nhs.nhs_number',
+              subjectNamespace: config.project_subject_namespace,
               queryable: 'true',
               modifiable: 'true'
             }
@@ -96,10 +97,10 @@ function checkNHSNumber(patientId, email, session, callback) {
             },
             req: {
               body: {
-                author: 'Helm PHR service',
-                name: 'Leeds Live - Whats On',
-                landingPageUrl: 'https://www.leeds-live.co.uk/best-in-leeds/whats-on-news/',
-                rssFeedUrl: 'https://www.leeds-live.co.uk/news/?service=rss'
+                author: config.author,
+                name: config.name,
+                landingPageUrl: config.landingPageUrl,
+                rssFeedUrl: config.rssFeedUrl
               }
             }
           };
@@ -128,4 +129,4 @@ function checkNHSNumber(patientId, email, session, callback) {
 
 }
 
-module.exports = checkNHSNumber;
+module.exports = checkProjectNumber;

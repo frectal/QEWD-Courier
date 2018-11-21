@@ -30,7 +30,7 @@
 
 var postHeading = require('../src/postHeading/postHeading');
 var openEHR = require('../src/openEHR');
-var mapNHSNoByHost = require('../src/mapNHSNoByHost');
+var mapProjectNoByHost = require('../src/mapProjectNoByHost');
 var deleteSessionCaches = require('../src/deleteSessionCaches');
 
 module.exports = function(args, finished) {
@@ -97,7 +97,7 @@ module.exports = function(args, finished) {
   */
 
   openEHR.startSession(host, session, function(openEhrSession) {
-    mapNHSNoByHost.call(_this, patientId, host, openEhrSession, function(ehrId) {
+	  mapProjectNoByHost.call(_this, patientId, host, openEhrSession, function(ehrId) {
 
       function postNextDiscoveryRecord(recNo) {
         var complete;

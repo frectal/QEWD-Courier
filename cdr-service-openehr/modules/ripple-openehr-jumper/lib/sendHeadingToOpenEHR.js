@@ -31,7 +31,7 @@
 
 //var openEHRPath = __dirname + '/../../ripple-cdr-openehr/src/';
 var openEHR; // = require(openEHRPath + 'openEHR');
-//var mapNHSNoByHost = require(openEHRPath + 'mapNHSNoByHost');
+//var mapProjectNoByHost = require(openEHRPath + 'mapProjectNoByHost');
 //var deleteSessionCaches = require(openEHRPath + 'deleteSessionCaches');
 var sendHeadingData = require('./sendHeadingData');
 
@@ -47,7 +47,7 @@ function sendHeadingToOpenEHR(params, callback) {
   if (!openEHR) {
     var openEHRPath = this.userDefined.paths.openEHR_modules;
     var openEHR = require(openEHRPath + 'openEHR');
-    var mapNHSNoByHost = require(openEHRPath + 'mapNHSNoByHost');
+    var mapProjectNoByHost = require(openEHRPath + 'mapProjectNoByHost');
     var deleteSessionCaches = require(openEHRPath + 'deleteSessionCaches');
   }
 
@@ -69,7 +69,7 @@ function sendHeadingToOpenEHR(params, callback) {
       if (callback) callback({error: 'Unable to establish a session with ' + host});
       return;
     }
-    mapNHSNoByHost.call(self, patientId, host, openEhrSession, function(ehrId) {
+	  mapProjectNoByHost.call(self, patientId, host, openEhrSession, function(ehrId) {
       // force a reload of this heading after the update
       var args = {
         heading: heading,
