@@ -29,8 +29,8 @@
 */
 
 var transform = require('qewd-transform-json').transform;
-var headingMap = require('./headingMap');
-var discovery_helpers = require('./discoveryHelpers');
+var headingMap = require('../headingMap');
+var discovery_helpers = require('../discoveryHelpers');
 
 module.exports = function(nhsNumber, headingName, format, session) {
 

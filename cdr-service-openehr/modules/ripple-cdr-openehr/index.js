@@ -53,19 +53,19 @@ var getFeedDetail = require('./feeds/getDetail');
 var postFeed = require('./feeds/post');
 var editFeed = require('./feeds/edit');
 
-var revertDiscoveryData = require('./handlers/revertDiscoveryData');
-var revertAllDiscoveryData = require('./handlers/revertAllDiscoveryData');
+var revertDataSourceAPIData = require('./handlers/revertDataSourceAPIData');
+var revertAllDataSourceAPIData = require('./handlers/revertAllDataSourceAPIData');
 
-var checkNHSNumber = require('./handlers/checkNHSNumber');
+var checkIdentifierNumber = require('./handlers/checkIdentifierNumber');
 
-var mergeDiscoveryData = require('./handlers/mergeDiscoveryData');
+var mergeDataSourceAPIData = require('./handlers/mergeDataSourceAPIData');
 
-var getDiscoveryHeadingData = require('./src/getDiscoveryHeadingData');
-var mergeDiscoveryDataInWorker = require('./src/mergeDiscoveryDataInWorker');
+var getDiscoveryHeadingData = require('./src/getHeading/getDiscoveryHeadingData');
+var mergeDataSourceAPIDataInWorker = require('./src/mergeDataSourceAPIDataInWorker');
 
 var routes = {
   '/api/openehr/check': {
-    GET: checkNHSNumber
+    GET: checkIdentifierNumber
   },
   '/api/heading/:heading/fields/summary': {
     GET: getHeadingSummaryFields
@@ -112,13 +112,13 @@ var routes = {
     PUT: editFeed
   },
   '/discovery/merge/:heading': {
-    GET: mergeDiscoveryData
+    GET: mergeDataSourceAPIData
   },
   '/api/discovery/revert/:patientId/:heading': {
-    DELETE: revertDiscoveryData
+    DELETE: revertDataSourceAPIData
   },
   '/api/discovery/revert/all': {
-    DELETE: revertAllDiscoveryData
+    DELETE: revertAllDataSourceAPIData
   },
 };
 
@@ -206,7 +206,7 @@ module.exports = {
         console.log('workerResponseHandler: ' + JSON.stringify(message, null, 2));
 
         /*
-          response from /api/openehr/check (/handlers/checkNHSNumber.js) is:
+          response from /api/openehr/check (/handlers/checkIdentifierNumber.js) is:
 
           {
             "status": "loading_data" | "ready",
@@ -247,7 +247,7 @@ module.exports = {
               var discovery_data = discovery_resp.message.results;
               // the merging of the Discovery Data has to take place in a worker,
               //  so send the message off to the worker to do it
-              mergeDiscoveryDataInWorker.call(_this, message.nhsNumber, heading, message.token, discovery_data, function(responseObj) {
+				mergeDataSourceAPIDataInWorker.call(_this, message.nhsNumber, heading, message.token, discovery_data, function(responseObj) {
                 // now get the next heading
                 ok = getNextHeading.call(_this, index);
                 if (ok) {

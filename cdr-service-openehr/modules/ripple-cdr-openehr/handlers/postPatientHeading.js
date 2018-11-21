@@ -29,7 +29,7 @@
 */
 
 var tools = require('../src/tools');
-var postHeading = require('../src/postHeading');
+var postHeading = require('../src/postHeading/postHeading');
 
 function postPatientHeading(args, finished) {
 

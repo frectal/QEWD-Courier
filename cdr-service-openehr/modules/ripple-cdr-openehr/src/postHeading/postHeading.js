@@ -29,9 +29,9 @@
 
 */
 
-var openEHR = require('./openEHR');
-var mapNHSNoByHost = require('./mapNHSNoByHost');
-var deleteSessionCaches = require('./deleteSessionCaches');
+var openEHR = require('../openEHR');
+var mapProjectNoByHost = require('../mapProjectNoByHost');
+var deleteSessionCaches = require('../deleteSessionCaches');
 var postHeadingData = require('./postHeadingData');
 var postHeadingByJumper;
 
@@ -89,7 +89,7 @@ function postHeading(patientId, heading, data, qewdSession, callback) {
         if (callback) callback({error: 'Unable to establish a session with ' + host});
         return;
       }
-      mapNHSNoByHost.call(self, patientId, host, openEhrSession, function(ehrId) {
+		mapProjectNoByHost.call(self, patientId, host, openEhrSession, function(ehrId) {
         // force a reload of this heading after the update
         var params = {
           heading: heading,

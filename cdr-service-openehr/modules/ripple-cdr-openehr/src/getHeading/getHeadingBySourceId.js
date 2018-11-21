@@ -28,7 +28,7 @@
 
 */
 
-var headingHelpers = require('./headingHelpers');
+var headingHelpers = require('../headingHelpers');
 var transform = require('qewd-transform-json').transform;
 var headingMap = {};
 try {

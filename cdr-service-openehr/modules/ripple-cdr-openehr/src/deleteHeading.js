@@ -29,7 +29,7 @@
 */
 
 var openEHR = require('./openEHR');
-var mapNHSNoByHost = require('./mapNHSNoByHost');
+var mapProjectNoByHost = require('./mapProjectNoByHost');
 var deleteSessionCaches = require('./deleteSessionCaches');
 
 function deleteHeadingRecord(host, sourceId, sessionId, callback) {

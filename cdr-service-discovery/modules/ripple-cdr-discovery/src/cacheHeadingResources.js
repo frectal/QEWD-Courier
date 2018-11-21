@@ -29,8 +29,8 @@
 */
 
 var cacheResource = require('./cacheResource');
-var getResource = require('./getResource');
-var getPractitionerOrganisations = require('./getPractitionerOrganisations');
+var getResource = require('./getData/getResource');
+var getPractitionerOrganisations = require('./getData/getPractitionerOrganisations');
 
 function isEmpty(obj) {
   for (var name in obj) {

@@ -1,0 +1,8 @@
+{
+  "application_name" : "ripple-cdr-openehr",
+  "project_subject_namespace" : "uk.nhs.nhs_number",
+  "author": "Helm PHR service",
+  "name" : "Leeds Live - Whats On",
+  "landingPageUrl" : "https://www.leeds-live.co.uk/best-in-leeds/whats-on-news/",
+  "rssFeedUrl" : "https://www.leeds-live.co.uk/news/?service=rss"
+}

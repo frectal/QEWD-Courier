@@ -24,47 +24,46 @@
  |  limitations under the License.                                          |
  ----------------------------------------------------------------------------
 
-  25 October 2018
-
+  15 February 2018
 
 */
 
+var transform = require('qewd-transform-json').transform;
+var flatten = require('../objectToFlatJSON');
+var dateTime = require('../dateTime');
+var openEHR = require('../openEHR');
 
-module.exports = function(patientId, heading, jwt, discovery_data, callback) {
+module.exports = function(params, callback) {
+  var postMap = params.headingPostMap;
+  var helpers = postMap.helperFunctions || {};
+  helpers.now = dateTime.now;
 
-  /*
+  var output = transform(postMap.transformTemplate, params.data, helpers);
 
-    This is invoked from the workerResponseHander in index.js
+  // ready to PUT
 
-    As a result, we're currently in the master process
-
-    So we manually dispatch a request for the /discovery/merge/:heading API to
-    a worker process, simulating as if it had come in from an external client
-    and via the Conductor microservice
-
-    Note: the worker will invoke /handlers/mergeDiscoveryData.js to deal with this
-
-  */
-
-  var messageObj = {
-    application: 'ripple-cdr-openehr',
-    type: 'restRequest',
-    path: '/discovery/merge/' + heading,
-    pathTemplate: '/discovery/merge/:heading',
-    method: 'GET',
-    headers: {
-      authorization: 'Bearer ' + jwt
+  var params = {
+    host: params.host,
+    callback: callback,
+    url: '/rest/v1/composition/' + params.compositionId,
+    queryString: {
+      templateId: postMap.templateId,
+      format: 'FLAT'
     },
-    args: {
-      heading: heading
-    },
-    data: discovery_data,
-    token: this.jwt.handlers.getProperty('uid', jwt)
+    method: 'PUT',
+    session: params.openEhrSessionId,
+    options: {
+      body: flatten(output)
+    }
   };
-  this.handleMessage(messageObj, function(responseObj) {
-    // heading has been merged into EtherCIS
-    callback(responseObj);
-  });
 
+  console.log('**** about to PUT Heading: ' + JSON.stringify(params, null, 2));
+
+  params.processBody = function(body, userObj) {
+    // for this to work, have to set userObj properties
+    //  simply setting the userObj object itself to body won't work
+    userObj.data = body;
+  };
+  var userObj = {};
+  openEHR.request(params, userObj);
 };
-

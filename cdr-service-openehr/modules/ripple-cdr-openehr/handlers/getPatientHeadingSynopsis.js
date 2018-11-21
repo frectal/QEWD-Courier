@@ -30,7 +30,7 @@
 
 var fetchAndCacheHeading = require('../src/fetchAndCacheHeading');
 var tools = require('../src/tools');
-var getHeadingBySourceId = require('../src/getHeadingBySourceId');
+var getHeadingBySourceId = require('../src/getHeading/getHeadingBySourceId');
 var getTop3ThingsSummary = require('../top3Things/getTop3ThingsSummarySync');
 
 

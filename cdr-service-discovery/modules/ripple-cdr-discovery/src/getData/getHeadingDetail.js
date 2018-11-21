@@ -29,7 +29,7 @@
 */
 
 var transform = require('qewd-transform-json').transform;
-var headingMap = require('./headingMap');
+var headingMap = require('../headingMap');
 
 module.exports = function(nhsNumber, headingName, headingRef, format, session) {
 

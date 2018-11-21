@@ -24,45 +24,47 @@
  |  limitations under the License.                                          |
  ----------------------------------------------------------------------------
 
-  17 January 2018
+  25 October 2018
+
 
 */
+var config = require('../../../config/system_config');
 
-var transform = require('qewd-transform-json').transform;
-var flatten = require('./objectToFlatJSON');
-var dateTime = require('./dateTime');
-var openEHR = require('./openEHR');
+module.exports = function(patientId, heading, jwt, discovery_data, callback) {
 
-module.exports = function(params, callback) {
-  var postMap = params.headingPostMap;
-  var helpers = postMap.helperFunctions || {};
-  helpers.now = dateTime.now;
+  /*
 
-  var output = transform(postMap.transformTemplate, params.data, helpers);
-  var body = flatten(output);
+    This is invoked from the workerResponseHander in index.js
 
-  // ready to post
-  var params = {
-    host: params.host,
-    callback: callback,
-    url: '/rest/v1/composition',
-    queryString: {
-      templateId: postMap.templateId,
-      ehrId: params.ehrId,
-      format: 'FLAT'
+    As a result, we're currently in the master process
+
+    So we manually dispatch a request for the /discovery/merge/:heading API to
+    a worker process, simulating as if it had come in from an external client
+    and via the Conductor microservice
+
+    Note: the worker will invoke /handlers/mergeDataSourceAPIData.js to deal with this
+
+  */
+
+  var messageObj = {
+    application: config.application_name,
+    type: 'restRequest',
+    path: '/discovery/merge/' + heading,
+    pathTemplate: '/discovery/merge/:heading',
+    method: 'GET',
+    headers: {
+      authorization: 'Bearer ' + jwt
     },
-    method: 'POST',
-    session: params.openEhrSessionId,
-    options: {
-      body: body
-    }
+    args: {
+      heading: heading
+    },
+    data: discovery_data,
+    token: this.jwt.handlers.getProperty('uid', jwt)
   };
-  console.log('**** about to post data: ' + JSON.stringify(params, null, 2));
-  params.processBody = function(body, userObj) {
-    // for this to work, have to set userObj properties
-    //  simply setting the userObj object itself to body won't work
-    userObj.data = body;
-  };
-  var userObj = {};
-  openEHR.request(params, userObj);
+  this.handleMessage(messageObj, function(responseObj) {
+    // heading has been merged into EtherCIS
+    callback(responseObj);
+  });
+
 };
+

@@ -29,7 +29,7 @@
 */
 
 var fetchAndCacheHeading = require('../src/fetchAndCacheHeading');
-var getHeadingDetailFromCache = require('../src/getHeadingDetailFromCache');
+var getHeadingDetailFromCache = require('../src/getHeading/getHeadingDetailFromCache');
 var tools = require('../src/tools');
 
 function getDetail(sourceId, session, finished) {
